@@ -16,11 +16,11 @@ function resetGame() {
 
 function game() {
   const mosca = document.querySelector('.mosca')
-  const scoreDisplay = document.querySelector('#score')
+  mosca.addEventListener('click', addScore)
+}
 
-  mosca.addEventListener('click', moveMosca)
-
-  setInterval(() => {}, 1000)
+function addScore() {
+  score += 1
 }
 
 function moveMosca(e) {
@@ -36,22 +36,29 @@ function moveMosca(e) {
   console.log(window.innerWidth)
   mosca.style.top = `${randomY.toFixed(0)}px`
   mosca.style.left = `${randomX.toFixed(0)}px`
-
-  score += 1
 }
 
 if (window.location.pathname === '/game.html') {
+  game()
   const scoreDisplay = document.querySelector('#score')
   switch (difficulty) {
     case 'medium':
+      setInterval(() => {
+        moveMosca()
+      }, 3000)
       break
     case 'hard':
+      setInterval(() => {
+        moveMosca()
+      }, 2000)
       break
     case 'impossible':
+      setInterval(() => {
+        moveMosca()
+      }, 1000)
       break
   }
   setInterval(() => {
     scoreDisplay.textContent = `${score}`
   })
-  game()
 }
